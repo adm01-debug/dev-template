@@ -4,15 +4,15 @@ Template padrão de projetos frontend com boas práticas de desenvolvimento, bas
 
 ## Stack
 
-| Camada | Tecnologia |
-|---|---|
-| Build | Vite 6 (porta 8080) |
-| UI | React 18 + TypeScript (strict) |
-| Estilo | CSS Modules / SCSS (sua escolha) |
-| Testes | Vitest 4 + Testing Library |
-| Lint | ESLint 9 + typescript-eslint |
-| Formatação | Prettier |
-| CI | GitHub Actions (typecheck + lint + test + build) |
+| Camada     | Tecnologia                                       |
+| ---------- | ------------------------------------------------ |
+| Build      | Vite 6 (porta 8080)                              |
+| UI         | React 18 + TypeScript (strict)                   |
+| Estilo     | CSS Modules / SCSS (sua escolha)                 |
+| Testes     | Vitest 4 + Testing Library                       |
+| Lint       | ESLint 9 + typescript-eslint                     |
+| Formatação | Prettier                                         |
+| CI         | GitHub Actions (typecheck + lint + test + build) |
 
 ## Começando
 
@@ -25,16 +25,16 @@ bun run test       # testes
 
 ## Scripts
 
-| Script | O que faz |
-|---|---|
-| `dev` | Dev server com HMR na porta 8080 |
-| `build` | Build de produção em dist/ |
-| `preview` | Serve o build na porta 4173 |
-| `typecheck` | Verifica tipos (tsc --noEmit) |
-| `lint` | ESLint (máx 10 warnings) |
-| `format` | Prettier --write |
-| `test` | Vitest |
-| `check` | Ciclo completo: typecheck → lint → test → build |
+| Script      | O que faz                                       |
+| ----------- | ----------------------------------------------- |
+| `dev`       | Dev server com HMR na porta 8080                |
+| `build`     | Build de produção em dist/                      |
+| `preview`   | Serve o build na porta 4173                     |
+| `typecheck` | Verifica tipos (tsc --noEmit)                   |
+| `lint`      | ESLint (máx 10 warnings)                        |
+| `format`    | Prettier --write                                |
+| `test`      | Vitest                                          |
+| `check`     | Ciclo completo: typecheck → lint → test → build |
 
 ## Boas práticas incluídas
 
