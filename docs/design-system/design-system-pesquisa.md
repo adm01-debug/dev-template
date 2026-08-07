@@ -22,17 +22,17 @@
 ### 1.1 Definição
 
 > **Design system** é um conjunto completo de padrões destinado a gerenciar o design em escala, usando componentes e padrões reutilizáveis.
-> — Nielsen Norman Group (NN/g), *Design Systems 101*
+> — Nielsen Norman Group (NN/g), _Design Systems 101_
 
 Na prática, um design system é **a "fonte única da verdade"** do visual de um produto: uma biblioteca de peças prontas (botões, campos, cartões, janelas) + as regras de como usá-las (cores, fontes, espaçamentos) + a documentação explicando tudo.
 
 Um design system tem 3 partes (NN/g):
 
-| Parte | O que é | Exemplo no ZAPP Web v3 |
-|---|---|---|
-| **Style guide** | Regras de estilo: cores, tipografia, tom de voz | Paleta da marca, fontes dos chats |
-| **Component library** | Peças de UI prontas e reutilizáveis | Botão "Responder", campo de busca de conversas |
-| **Pattern library** | Padrões de uso combinado das peças | Tela de conversa: header + lista de mensagens + caixa de texto |
+| Parte                 | O que é                                         | Exemplo no ZAPP Web v3                                         |
+| --------------------- | ----------------------------------------------- | -------------------------------------------------------------- |
+| **Style guide**       | Regras de estilo: cores, tipografia, tom de voz | Paleta da marca, fontes dos chats                              |
+| **Component library** | Peças de UI prontas e reutilizáveis             | Botão "Responder", campo de busca de conversas                 |
+| **Pattern library**   | Padrões de uso combinado das peças              | Tela de conversa: header + lista de mensagens + caixa de texto |
 
 ### 1.2 Benefícios (em linguagem de negócio)
 
@@ -85,12 +85,12 @@ categoria . propriedade . variante . estado
 color      . text       . primary  . hover
 ```
 
-| Parte | O que define | Exemplos |
-|---|---|---|
-| **Categoria** | Tipo de token | `color`, `space`, `font`, `radius`, `shadow` |
-| **Propriedade** | O que ele controla | `text`, `background`, `border`, `size`, `weight` |
-| **Variante** | Qual variação | `primary`, `secondary`, `brand`, `success`, `error`, `sm`, `md` |
-| **Escala/Estado** | Nível da escala ou estado | `500`, `hover`, `disabled`, `focus` |
+| Parte             | O que define              | Exemplos                                                        |
+| ----------------- | ------------------------- | --------------------------------------------------------------- |
+| **Categoria**     | Tipo de token             | `color`, `space`, `font`, `radius`, `shadow`                    |
+| **Propriedade**   | O que ele controla        | `text`, `background`, `border`, `size`, `weight`                |
+| **Variante**      | Qual variação             | `primary`, `secondary`, `brand`, `success`, `error`, `sm`, `md` |
+| **Escala/Estado** | Nível da escala ou estado | `500`, `hover`, `disabled`, `focus`                             |
 
 **Exemplos de nomes corretos:**
 
@@ -107,14 +107,15 @@ shadow.md                    → sombra média (elevação)
 
 **Nomes proibidos** (erros clássicos):
 
-| Errado | Por quê |
-|---|---|
-| `--blue` | Qual azul? Ambíguo |
-| `--color1` | Sem significado |
-| `--big-spacing` | Impreciso ("grande" para quem?) |
+| Errado                   | Por quê                             |
+| ------------------------ | ----------------------------------- |
+| `--blue`                 | Qual azul? Ambíguo                  |
+| `--color1`               | Sem significado                     |
+| `--big-spacing`          | Impreciso ("grande" para quem?)     |
 | `--the-blue-on-homepage` | Específico demais; não reutilizável |
 
 **Regras de ouro da nomeação:**
+
 1. Comece pela categoria (agrupa e organiza).
 2. Use **nome de propósito** (semântico), não nome literal: `color.brand.primary` e não `color.blue-500` quando o uso for de marca.
 3. Inclua variantes e estados quando fizer sentido (`primary`, `hover`, `disabled`).
@@ -143,17 +144,17 @@ Nível 3 — Componente (uso específico; referenciam semânticos)
 
 O padrão da indústria é uma escala numérica múltipla de 4px (também comum: 8px). Tudo — padding, margens, gaps, alturas — vem dessa escala. **Nunca invente um espaçamento fora da escala.**
 
-| Token | Valor | Uso típico |
-|---|---|---|
-| `space.0` | 0 | — |
-| `space.1` | 4px | Gap mínimo entre ícone e texto |
-| `space.2` | 8px | Padding interno de botão pequeno |
-| `space.3` | 12px | Padding interno de botão padrão |
-| `space.4` | 16px | Padding de card, gap entre blocos |
-| `space.6` | 24px | Espaço entre seções de uma tela |
-| `space.8` | 32px | Espaço entre cards de conversa |
-| `space.12` | 48px | Respiração de páginas/headers |
-| `space.16` | 64px | Seções grandes (topo de página) |
+| Token      | Valor | Uso típico                        |
+| ---------- | ----- | --------------------------------- |
+| `space.0`  | 0     | —                                 |
+| `space.1`  | 4px   | Gap mínimo entre ícone e texto    |
+| `space.2`  | 8px   | Padding interno de botão pequeno  |
+| `space.3`  | 12px  | Padding interno de botão padrão   |
+| `space.4`  | 16px  | Padding de card, gap entre blocos |
+| `space.6`  | 24px  | Espaço entre seções de uma tela   |
+| `space.8`  | 32px  | Espaço entre cards de conversa    |
+| `space.12` | 48px  | Respiração de páginas/headers     |
+| `space.16` | 64px  | Seções grandes (topo de página)   |
 
 > **Por que 4px?** Todos os números dividem por 4 → alinhamento perfeito em qualquer resolução, ritmo visual consistente, e é o múltiplo comum usado por Material Design, Tailwind e quase todos os grandes sistemas.
 
@@ -172,7 +173,7 @@ O padrão da indústria é uma escala numérica múltipla de 4px (também comum:
   --blue-600: #2563eb;
   --gray-50: #f9fafb;
   --gray-900: #111827;
-  --space-4: 1rem;   /* 16px */
+  --space-4: 1rem; /* 16px */
 
   /* Semânticos */
   --color-primary: var(--blue-500);
@@ -203,13 +204,13 @@ Metodologia criada por **Brad Frost** (2013) que organiza a interface em 5 níve
 
 ### 3.1 Os 5 níveis
 
-| Nível | Definição | Exemplos genéricos | Exemplos no ZAPP Web v3 |
-|---|---|---|---|
-| **1. Átomos** | Elementos básicos que não podem ser quebrados sem perder função | Botão, input, label, ícone, avatar, título, cor, fonte | Input de mensagem, botão enviar, avatar do contato, ícone de anexo |
-| **2. Moléculas** | Grupos simples de átomos com função própria | Label + input + botão = formulário de busca | Campo de busca + ícone de lupa; chip de status + nome do contato |
-| **3. Organismos** | Seções complexas formadas por moléculas/átomos | Header do site (logo + nav + busca) | Card de conversa completo (avatar + nome + última msg + hora + badge não-lido); barra lateral de chats; janela de conversa |
-| **4. Templates** | Esqueleto da página: onde cada organismo fica, sem conteúdo real | Layout da homepage (header + hero + footer) | Layout "3 colunas": sidebar de chats + janela de conversa + painel de detalhes do contato |
-| **5. Páginas** | Template preenchido com conteúdo real | Homepage com textos e imagens reais | Conversa real com o cliente "Maria", 3 mensagens não lidas, anexo de PDF |
+| Nível             | Definição                                                        | Exemplos genéricos                                     | Exemplos no ZAPP Web v3                                                                                                    |
+| ----------------- | ---------------------------------------------------------------- | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| **1. Átomos**     | Elementos básicos que não podem ser quebrados sem perder função  | Botão, input, label, ícone, avatar, título, cor, fonte | Input de mensagem, botão enviar, avatar do contato, ícone de anexo                                                         |
+| **2. Moléculas**  | Grupos simples de átomos com função própria                      | Label + input + botão = formulário de busca            | Campo de busca + ícone de lupa; chip de status + nome do contato                                                           |
+| **3. Organismos** | Seções complexas formadas por moléculas/átomos                   | Header do site (logo + nav + busca)                    | Card de conversa completo (avatar + nome + última msg + hora + badge não-lido); barra lateral de chats; janela de conversa |
+| **4. Templates**  | Esqueleto da página: onde cada organismo fica, sem conteúdo real | Layout da homepage (header + hero + footer)            | Layout "3 colunas": sidebar de chats + janela de conversa + painel de detalhes do contato                                  |
+| **5. Páginas**    | Template preenchido com conteúdo real                            | Homepage com textos e imagens reais                    | Conversa real com o cliente "Maria", 3 mensagens não lidas, anexo de PDF                                                   |
 
 ### 3.2 Exemplo concreto: a janela de conversa do ZAPP
 
@@ -245,37 +246,38 @@ PÁGINA: Conversa com cliente
 
 ### 4.1 Componentes essenciais de qualquer sistema
 
-| Componente | Função | Uso no ZAPP Web v3 |
-|---|---|---|
-| **Botão (Button)** | Dispara ação | Enviar mensagem, salvar contato, abrir chat |
-| **Campo de texto (Input)** | Entrada de dados | Buscar conversa, digitar mensagem, editar nome |
-| **Card** | Agrupa conteúdo | Card de conversa, card de contato, card de produto |
-| **Modal** | Diálogo sobre a tela | Confirmar exclusão de conversa, editar contato |
-| **Badge** | Contador/status pequeno | "3" mensagens não lidas, status "online", tag "novo" |
-| **Avatar** | Foto/perfil do usuário | Foto do contato, foto do atendente |
-| **Toast** | Notificação rápida e temporária | "Mensagem enviada", "Contato salvo com sucesso" |
-| **Dropdown/Select** | Escolher entre opções | Selecionar canal (WhatsApp/Instagram), status do atendimento |
-| **Tooltip** | Dica ao passar o mouse | Explicar ícone de anexo |
-| **Tabs** | Navegar entre seções | Abas "Conversas / Contatos / Configurações" |
-| **Checkbox/Radio** | Seleção múltipla/única | Filtros de busca, preferências |
-| **Skeleton** | Placeholder de carregamento | Esqueleto da lista de conversas enquanto carrega |
+| Componente                 | Função                          | Uso no ZAPP Web v3                                           |
+| -------------------------- | ------------------------------- | ------------------------------------------------------------ |
+| **Botão (Button)**         | Dispara ação                    | Enviar mensagem, salvar contato, abrir chat                  |
+| **Campo de texto (Input)** | Entrada de dados                | Buscar conversa, digitar mensagem, editar nome               |
+| **Card**                   | Agrupa conteúdo                 | Card de conversa, card de contato, card de produto           |
+| **Modal**                  | Diálogo sobre a tela            | Confirmar exclusão de conversa, editar contato               |
+| **Badge**                  | Contador/status pequeno         | "3" mensagens não lidas, status "online", tag "novo"         |
+| **Avatar**                 | Foto/perfil do usuário          | Foto do contato, foto do atendente                           |
+| **Toast**                  | Notificação rápida e temporária | "Mensagem enviada", "Contato salvo com sucesso"              |
+| **Dropdown/Select**        | Escolher entre opções           | Selecionar canal (WhatsApp/Instagram), status do atendimento |
+| **Tooltip**                | Dica ao passar o mouse          | Explicar ícone de anexo                                      |
+| **Tabs**                   | Navegar entre seções            | Abas "Conversas / Contatos / Configurações"                  |
+| **Checkbox/Radio**         | Seleção múltipla/única          | Filtros de busca, preferências                               |
+| **Skeleton**               | Placeholder de carregamento     | Esqueleto da lista de conversas enquanto carrega             |
 
 ### 4.2 Estados de interação (o que todo componente precisa)
 
 Cada componente interativo deve ter **estados definidos** — o NN/g lista 5 estados core (mais os funcionais):
 
-| Estado | Quando aparece | O que muda visualmente | Exemplo (botão) |
-|---|---|---|---|
-| **Default** | Estado normal, pronto para uso | Aparência base | Botão azul preenchido |
-| **Hover** | Mouse em cima (só mouse) | Escurece/clareia levemente | Azul mais escuro |
-| **Active/Pressed** | Mouse pressionado | Leve "afundamento" / tom mais forte | Azul mais escuro ainda + sombra reduzida |
-| **Focus** | Navegação por teclado/tab | Anel de foco visível (outline) | Contorno azul claro ao redor |
-| **Disabled** | Ação indisponível | Opacidade reduzida (40-50%), cursor bloqueado | Botão cinza apagado |
-| **Loading** | Ação em andamento | Spinner no lugar do texto, clique bloqueado | "Enviando…" com círculo girando |
-| **Error** | Validação falhou | Borda/ícone vermelho + mensagem | Campo com borda vermelha + "Número inválido" |
-| **Success** | Ação concluída | Confirmação verde | Toast verde "Mensagem enviada" |
+| Estado             | Quando aparece                 | O que muda visualmente                        | Exemplo (botão)                              |
+| ------------------ | ------------------------------ | --------------------------------------------- | -------------------------------------------- |
+| **Default**        | Estado normal, pronto para uso | Aparência base                                | Botão azul preenchido                        |
+| **Hover**          | Mouse em cima (só mouse)       | Escurece/clareia levemente                    | Azul mais escuro                             |
+| **Active/Pressed** | Mouse pressionado              | Leve "afundamento" / tom mais forte           | Azul mais escuro ainda + sombra reduzida     |
+| **Focus**          | Navegação por teclado/tab      | Anel de foco visível (outline)                | Contorno azul claro ao redor                 |
+| **Disabled**       | Ação indisponível              | Opacidade reduzida (40-50%), cursor bloqueado | Botão cinza apagado                          |
+| **Loading**        | Ação em andamento              | Spinner no lugar do texto, clique bloqueado   | "Enviando…" com círculo girando              |
+| **Error**          | Validação falhou               | Borda/ícone vermelho + mensagem               | Campo com borda vermelha + "Número inválido" |
+| **Success**        | Ação concluída                 | Confirmação verde                             | Toast verde "Mensagem enviada"               |
 
 **Regras de ouro dos estados:**
+
 1. **Hover é opcional, Focus é obrigatório** — foco visível é requisito de acessibilidade (navegação por teclado precisa saber onde está).
 2. **Hover, Active e Disabled sempre com contraste adequado** — o estado não pode "sumir" na tela.
 3. Transições curtas: **~150ms** (rápido o bastante para parecer responsivo, lento o bastante para não distrair).
@@ -320,18 +322,19 @@ A **escala modular** é uma sequência de tamanhos gerada por uma **proporção 
 
 **Escala recomendada para o ZAPP (base 16px, ajustada ao grid de 4px):**
 
-| Token | Tamanho | Line-height | Uso |
-|---|---|---|---|
-| `font.size.xs` | 12px | 16px (1.33) | Legendas, timestamps ("10:42") |
-| `font.size.sm` | 14px | 20px (1.43) | Texto auxiliar, labels de formulário |
-| `font.size.base` | **16px** | **24px (1.5)** | **Corpo de texto — a base** |
-| `font.size.lg` | 18px | 28px (1.55) | Texto destacado, subtítulos |
-| `font.size.xl` | 20px | 28px (1.4) | Título de card, nome de contato |
-| `font.size.2xl` | 24px | 32px (1.33) | Título de seção (H3) |
-| `font.size.3xl` | 32px | 40px (1.25) | Título de página (H2) |
-| `font.size.4xl` | 40px | 48px (1.2) | Título principal (H1) |
+| Token            | Tamanho  | Line-height    | Uso                                  |
+| ---------------- | -------- | -------------- | ------------------------------------ |
+| `font.size.xs`   | 12px     | 16px (1.33)    | Legendas, timestamps ("10:42")       |
+| `font.size.sm`   | 14px     | 20px (1.43)    | Texto auxiliar, labels de formulário |
+| `font.size.base` | **16px** | **24px (1.5)** | **Corpo de texto — a base**          |
+| `font.size.lg`   | 18px     | 28px (1.55)    | Texto destacado, subtítulos          |
+| `font.size.xl`   | 20px     | 28px (1.4)     | Título de card, nome de contato      |
+| `font.size.2xl`  | 24px     | 32px (1.33)    | Título de seção (H3)                 |
+| `font.size.3xl`  | 32px     | 40px (1.25)    | Título de página (H2)                |
+| `font.size.4xl`  | 40px     | 48px (1.2)     | Título principal (H1)                |
 
 **Regras:**
+
 - Comece pela escala modular como guia e **arredonde os valores para múltiplos de 4px** (25px → 24px) para alinhar com o grid.
 - Use `rem` (relativo à raiz) em vez de `px` — respeita o zoom/ajuste de fonte do usuário (acessibilidade).
 - **Nunca use tamanhos fora da escala.** Se precisar de um tamanho novo, adicione-o à escala — não invente no componente.
@@ -349,6 +352,7 @@ Caption — 12px / Regular  → timestamps, contadores
 ```
 
 Regras:
+
 - **1 H1 por página**; títulos em hierarquia estrita (não pule de H1 para H3).
 - Prefira **aumentar tamanho** a adicionar pesos de fonte (menos pesos carregados = site mais rápido).
 - Limite de pesos: **Regular (400), Medium (500), Semibold (600), Bold (700)** — raramente precisa de mais.
@@ -362,8 +366,8 @@ Regras:
 
 ```css
 :root {
-  --line-height-tight: 1.25;   /* títulos */
-  --line-height-normal: 1.5;   /* corpo */
+  --line-height-tight: 1.25; /* títulos */
+  --line-height-normal: 1.5; /* corpo */
   --line-height-relaxed: 1.75; /* textos longos */
 }
 ```
@@ -403,14 +407,15 @@ USOS (nível semântico)
 
 O **WCAG 2.1, nível AA** define os mínimos (obrigatórios em sistemas sérios e em apps públicos):
 
-| Elemento | Contraste mínimo | Cálculo |
-|---|---|---|
-| Texto normal (< 18pt) | **4.5 : 1** | luminância do texto vs. fundo |
-| Texto grande (≥ 18pt ou ≥ 14pt bold) | **3 : 1** | idem |
-| Componentes de UI (bordas de input, ícones essenciais) | **3 : 1** | vs. cores adjacentes |
-| Indicador de foco | **3 : 1** | vs. cor adjacente |
+| Elemento                                               | Contraste mínimo | Cálculo                       |
+| ------------------------------------------------------ | ---------------- | ----------------------------- |
+| Texto normal (< 18pt)                                  | **4.5 : 1**      | luminância do texto vs. fundo |
+| Texto grande (≥ 18pt ou ≥ 14pt bold)                   | **3 : 1**        | idem                          |
+| Componentes de UI (bordas de input, ícones essenciais) | **3 : 1**        | vs. cores adjacentes          |
+| Indicador de foco                                      | **3 : 1**        | vs. cor adjacente             |
 
 **Regras práticas:**
+
 - Texto **nunca** em cinza claro sobre branco (o clássico "cinza #999 em branco" reprova com folga — use no mínimo `neutral.600`).
 - **Não confie no olho:** contraste se mede com ferramentas (WebAIM Contrast Checker, Stark no Figma, Chrome DevTools).
 - Teste os **pares reais** do sistema (texto sobre botão, texto sobre card), não só a paleta isolada.
@@ -446,6 +451,7 @@ O **WCAG 2.1, nível AA** define os mínimos (obrigatórios em sistemas sérios 
 ```
 
 **Pitfalls do dark mode (WCAG):**
+
 - **Não use preto puro** (#000) — use cinza bem escuro (#121212 ou tons 800–900). Preto puro + branco = ofuscamento (halation) em telas OLED.
 - **Cores saturadas brilham demais no escuro** — reduza saturação dos tons de marca no tema escuro.
 - **Valide o contraste de novo no tema escuro** — o que passa no claro pode falhar no escuro (e vice-versa). Teste os dois temas com as mesmas regras AA (4.5:1 texto, 3:1 UI).
@@ -496,6 +502,7 @@ src/
 ```
 
 **Regras de convivência:**
+
 - `components/ui/` só contém peças **genéricas e reutilizáveis** (sem regra de negócio).
 - Telas e regras de negócio vão em `features/` e **importam apenas** de `ui/` + `tokens/`.
 - Um componente de `ui/` **nunca** importa de `features/` (dependência sempre para dentro).
@@ -536,11 +543,11 @@ meu-design-system/
 
 ### Fontes pesquisadas
 
-- Nielsen Norman Group — *Design Systems 101*: nngroup.com/articles/design-systems-101
-- Brad Frost — *Atomic Design* (livro online): atomicdesign.bradfrost.com
-- Figma — *Design Systems 101*: figma.com/blog/design-systems-101-what-is-a-design-system
-- design.dev — *Design Systems & Design Tokens Explained*: design.dev/guides/design-systems
-- designsystems.com — *Typography Guide* (por Figma)
-- NN/g — *Button States: Communicate Interaction*; Figma Resource Library — *Button States*; USWDS — *Button component*
+- Nielsen Norman Group — _Design Systems 101_: nngroup.com/articles/design-systems-101
+- Brad Frost — _Atomic Design_ (livro online): atomicdesign.bradfrost.com
+- Figma — _Design Systems 101_: figma.com/blog/design-systems-101-what-is-a-design-system
+- design.dev — _Design Systems & Design Tokens Explained_: design.dev/guides/design-systems
+- designsystems.com — _Typography Guide_ (por Figma)
+- NN/g — _Button States: Communicate Interaction_; Figma Resource Library — _Button States_; USWDS — _Button component_
 - WCAG 2.1 — critérios 1.4.3 (Contrast Minimum AA: 4.5:1 / 3:1) e 1.4.11 (Non-text Contrast: 3:1); guias de dark mode acessível (accessibilitychecker.org, dubbot.com)
-- Storybook — *Structuring your Storybook*; shadcn/ui — *Monorepo* docs; Toptal — *The Benefits of a Design System*
+- Storybook — _Structuring your Storybook_; shadcn/ui — _Monorepo_ docs; Toptal — _The Benefits of a Design System_

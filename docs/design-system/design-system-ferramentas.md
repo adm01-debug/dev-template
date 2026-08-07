@@ -64,25 +64,37 @@ npm install style-dictionary @tokens-studio/sd-transforms
 {
   "color": {
     "primary": { "$value": "#0066CC", "$type": "color" },
-    "surface":  { "$value": "#FFFFFF", "$type": "color" }
+    "surface": { "$value": "#FFFFFF", "$type": "color" },
   },
   "spacing": {
-    "sm": { "$value": "8px", "$type": "dimension" }
-  }
+    "sm": { "$value": "8px", "$type": "dimension" },
+  },
 }
 ```
 
 ```js
 // 3. config.js — gera os arquivos de saída
-import StyleDictionary from 'style-dictionary';
+import StyleDictionary from "style-dictionary";
 
 const sd = new StyleDictionary({
-  source: ['tokens/**/*.json'],
+  source: ["tokens/**/*.json"],
   platforms: {
-    css:   { transformGroup: 'tokens-studio', buildPath: 'dist/css/',   files: [{ destination: 'variables.css', format: 'css/variables' }] },
-    js:    { transformGroup: 'tokens-studio', buildPath: 'dist/js/',    files: [{ destination: 'tokens.js', format: 'javascript/es6' }] },
-    tailwind: { transformGroup: 'tokens-studio', buildPath: 'dist/tw/', files: [{ destination: 'tailwind.tokens.json', format: 'tailwind/tokens' }] },
-  }
+    css: {
+      transformGroup: "tokens-studio",
+      buildPath: "dist/css/",
+      files: [{ destination: "variables.css", format: "css/variables" }],
+    },
+    js: {
+      transformGroup: "tokens-studio",
+      buildPath: "dist/js/",
+      files: [{ destination: "tokens.js", format: "javascript/es6" }],
+    },
+    tailwind: {
+      transformGroup: "tokens-studio",
+      buildPath: "dist/tw/",
+      files: [{ destination: "tailwind.tokens.json", format: "tailwind/tokens" }],
+    },
+  },
 });
 sd.buildAllPlatforms();
 ```
@@ -124,12 +136,12 @@ Tokens nativos do CSS, definidos em `:root` e sobrescritos por tema.
 }
 ```
 
-| Prós | Contras |
-|---|---|
-| Funcionam em qualquer stack, sem biblioteca | Nenhum escopo automático (cascade global) |
-| Troca de tema em runtime com custo ~zero (só troca o valor da variável) | Verboso se usado sozinho para tudo |
-| Nativos do navegador, sem bundle extra | Sem lógica (não dá para fazer "se hover, então...") |
-| Base perfeita para dark mode | Nomes livres — precisa de disciplina/nomenclatura |
+| Prós                                                                    | Contras                                             |
+| ----------------------------------------------------------------------- | --------------------------------------------------- |
+| Funcionam em qualquer stack, sem biblioteca                             | Nenhum escopo automático (cascade global)           |
+| Troca de tema em runtime com custo ~zero (só troca o valor da variável) | Verboso se usado sozinho para tudo                  |
+| Nativos do navegador, sem bundle extra                                  | Sem lógica (não dá para fazer "se hover, então...") |
+| Base perfeita para dark mode                                            | Nomes livres — precisa de disciplina/nomenclatura   |
 
 **Uso recomendado:** como **camada de tokens** em qualquer stack. Todo o design system deveria ter suas cores/espaços/tipografia em CSS variables, independentemente do resto.
 
@@ -138,18 +150,16 @@ Tokens nativos do CSS, definidos em `:root` e sobrescritos por tema.
 Framework **utility-first**: classes atômicas (`bg-primary`, `p-4`, `rounded-md`) compostas no JSX, geradas a partir de um tema central.
 
 ```tsx
-<button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark">
-  Enviar
-</button>
+<button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark">Enviar</button>
 ```
 
-| Prós | Contras |
-|---|---|
-| Prototipagem muito rápida, consistência via tema único | Markup fica poluído de classes (menos legível) |
-| CSS final pequeno (só gera o que é usado — JIT/purge) | Curva de aprendizado dos nomes das classes |
-| Ótimo ecossistema (IntelliSense no VS Code, shadcn/ui) | Você não "vê" o CSS do componente de relance |
+| Prós                                                       | Contras                                           |
+| ---------------------------------------------------------- | ------------------------------------------------- |
+| Prototipagem muito rápida, consistência via tema único     | Markup fica poluído de classes (menos legível)    |
+| CSS final pequeno (só gera o que é usado — JIT/purge)      | Curva de aprendizado dos nomes das classes        |
+| Ótimo ecossistema (IntelliSense no VS Code, shadcn/ui)     | Você não "vê" o CSS do componente de relance      |
 | Integra-se bem com design tokens (config ou CSS variables) | É uma decisão arquitetural: difícil trocar depois |
-| Dark mode nativo com variante `dark:` | — |
+| Dark mode nativo com variante `dark:`                      | —                                                 |
 
 ### 2.3 CSS Modules
 
@@ -164,12 +174,12 @@ import styles from './Button.module.css';
 export function Button() { return <button className={styles.button}>Enviar</button>; }
 ```
 
-| Prós | Contras |
-|---|---|
-| CSS padrão, familiar, sem runtime | Continua sendo cascade global (herança, especificidade) |
-| Escopo automático, zero colisão de nomes | Verboso para estilos dinâmicos/condicionais |
-| Estático em build-time (rápido, cacheável) | Ferramentas extras para tipar imports no TS |
-| Funciona muito bem com CSS variables | Menos produtivo para layouts complexos rápidos |
+| Prós                                       | Contras                                                 |
+| ------------------------------------------ | ------------------------------------------------------- |
+| CSS padrão, familiar, sem runtime          | Continua sendo cascade global (herança, especificidade) |
+| Escopo automático, zero colisão de nomes   | Verboso para estilos dinâmicos/condicionais             |
+| Estático em build-time (rápido, cacheável) | Ferramentas extras para tipar imports no TS             |
+| Funciona muito bem com CSS variables       | Menos produtivo para layouts complexos rápidos          |
 
 ### 2.4 styled-components (CSS-in-JS)
 
@@ -177,34 +187,34 @@ Estilos escritos em JavaScript, junto do componente, com suporte a props dinâmi
 
 ```tsx
 const Button = styled.button`
-  background: ${props => props.theme.colors.primary};
-  padding: ${props => props.theme.spacing.md};
+  background: ${(props) => props.theme.colors.primary};
+  padding: ${(props) => props.theme.spacing.md};
 `;
 
 // Tema via ThemeProvider
 <ThemeProvider theme={lightTheme}>
   <Button>Enviar</Button>
-</ThemeProvider>
+</ThemeProvider>;
 ```
 
-| Prós | Contras |
-|---|---|
-| Estilos colados ao componente, fácil de achar | **Injeção de estilos em runtime**: JS extra e re-render |
-| Estilos dinâmicos por props sem esforço | Tema em runtime: consumidores re-renderizam ao trocar tema |
-| `ThemeProvider` facilita theming | Precisa de cuidado com SSR/FOUC (menos relevante em SPA Vite) |
-| Sem conflito de nomes de classe | Bundle maior; estilos não são extraíveis para CSS estático |
+| Prós                                          | Contras                                                       |
+| --------------------------------------------- | ------------------------------------------------------------- |
+| Estilos colados ao componente, fácil de achar | **Injeção de estilos em runtime**: JS extra e re-render       |
+| Estilos dinâmicos por props sem esforço       | Tema em runtime: consumidores re-renderizam ao trocar tema    |
+| `ThemeProvider` facilita theming              | Precisa de cuidado com SSR/FOUC (menos relevante em SPA Vite) |
+| Sem conflito de nomes de classe               | Bundle maior; estilos não são extraíveis para CSS estático    |
 
 ### 2.5 Comparação lado a lado
 
-| Critério | CSS Variables | Tailwind | CSS Modules | styled-components |
-|---|---|---|---|---|
-| Curva de aprendizado | Baixa | Média | Baixa | Média |
-| CSS em build-time (rápido) | ✅ | ✅ | ✅ | ❌ (runtime) |
-| Escopo de estilos | ❌ (global) | Nome de classe (combinável) | ✅ | ✅ |
-| Theming/dark mode | ⭐ Excelente (troca em runtime) | Bom (variante `dark:`) | Bom (com CSS vars) | Bom (ThemeProvider, mas runtime) |
-| TypeScript friendly | ✅ | ✅ (IntelliSense) | ⚠️ (precisa de tipagem) | ✅ |
-| Bundle/performance | Zero custo | CSS pequeno | Zero custo | Custo de runtime |
-| Melhor para design system | Base de tokens | Rápido + consistente | Componentes isolados | Componentes dinâmicos |
+| Critério                   | CSS Variables                   | Tailwind                    | CSS Modules             | styled-components                |
+| -------------------------- | ------------------------------- | --------------------------- | ----------------------- | -------------------------------- |
+| Curva de aprendizado       | Baixa                           | Média                       | Baixa                   | Média                            |
+| CSS em build-time (rápido) | ✅                              | ✅                          | ✅                      | ❌ (runtime)                     |
+| Escopo de estilos          | ❌ (global)                     | Nome de classe (combinável) | ✅                      | ✅                               |
+| Theming/dark mode          | ⭐ Excelente (troca em runtime) | Bom (variante `dark:`)      | Bom (com CSS vars)      | Bom (ThemeProvider, mas runtime) |
+| TypeScript friendly        | ✅                              | ✅ (IntelliSense)           | ⚠️ (precisa de tipagem) | ✅                               |
+| Bundle/performance         | Zero custo                      | CSS pequeno                 | Zero custo              | Custo de runtime                 |
+| Melhor para design system  | Base de tokens                  | Rápido + consistente        | Componentes isolados    | Componentes dinâmicos            |
 
 ### ✅ O que fazer no ZAPP Web v3
 
@@ -226,20 +236,21 @@ const Button = styled.button`
 **O que ela resolve:** as partes difíceis de UI que ninguém quer reimplementar — **acessibilidade WAI-ARIA** (atributos `aria-*` corretos), **navegação por teclado**, **gerenciamento de foco**, comportamento de modais (travar scroll, fechar com Esc, foco preso dentro), etc.
 
 **Características:**
+
 - **Zero estilos**: qualquer abordagem de CSS funciona por cima (Tailwind, CSS Modules, styled-components).
 - Estado exposto via atributos `data-state` (ex.: `[data-state="open"]`) — fácil de estilizar.
 - Prop `asChild` permite renderizar qualquer elemento seu.
 - Não é "bonito" por padrão — você estiliza.
 
 ```tsx
-import * as Dialog from '@radix-ui/react-dialog';
+import * as Dialog from "@radix-ui/react-dialog";
 
 <Dialog.Root>
   <Dialog.Trigger className="...">Abrir chat</Dialog.Trigger>
   <Dialog.Portal>
     <Dialog.Content className="...">Conteúdo do modal</Dialog.Content>
   </Dialog.Portal>
-</Dialog.Root>
+</Dialog.Root>;
 ```
 
 ### 3.2 shadcn/ui — componentes bonitos que são SEUS
@@ -261,6 +272,7 @@ npx shadcn@latest add button dialog select
 **O que acontece:** os arquivos dos componentes (com estilos Tailwind, variantes via `class-variance-authority` e comportamento via Radix) são copiados para `components/ui/`. **A partir daí, o código é seu**: sua equipe revisa em PR, edita, remove, customiza — como qualquer componente escrito por vocês.
 
 **Pilares (docs oficiais):**
+
 1. **Open Code** — código aberto e editável, sem "caixa preta".
 2. **Composição** — interface comum e previsível entre componentes.
 3. **Distribuição** — CLI + schema plano (registry).
@@ -273,26 +285,29 @@ npx shadcn@latest add button dialog select
 
 Eles **não competem**: o shadcn/ui usa Radix por baixo na maioria dos componentes interativos. A escolha real é:
 
-| Critério | shadcn/ui | Radix UI (primitivos) |
-|---|---|---|
-| Distribuição | CLI copia código para seu repo | Pacote npm (`@radix-ui/react-*`) |
-| Quem é dono do código | **Você** (edita direto) | A biblioteca (você estiliza em volta) |
-| Estilo | Pronto (Tailwind + CSS variables) | Zero estilo — você faz tudo |
-| Atualizações | Você gerencia (copiou = seu) | Via `npm update` |
-| Acessibilidade | Herdada do Radix | WAI-ARIA de fábrica |
-| Quando vale | App padrão, já usa Tailwind, quer velocidade | Stack sem Tailwind, design system bespoke, componentes com markup muito específico |
+| Critério              | shadcn/ui                                    | Radix UI (primitivos)                                                              |
+| --------------------- | -------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Distribuição          | CLI copia código para seu repo               | Pacote npm (`@radix-ui/react-*`)                                                   |
+| Quem é dono do código | **Você** (edita direto)                      | A biblioteca (você estiliza em volta)                                              |
+| Estilo                | Pronto (Tailwind + CSS variables)            | Zero estilo — você faz tudo                                                        |
+| Atualizações          | Você gerencia (copiou = seu)                 | Via `npm update`                                                                   |
+| Acessibilidade        | Herdada do Radix                             | WAI-ARIA de fábrica                                                                |
+| Quando vale           | App padrão, já usa Tailwind, quer velocidade | Stack sem Tailwind, design system bespoke, componentes com markup muito específico |
 
 **Quando o shadcn/ui vale a pena:**
+
 - App React+Vite+TS com Tailwind (caso do ZAPP Web v3) — acelera muito a construção.
 - Você quer **possuir** os componentes (customização total para a marca).
 - Precisa de padrões prontos: Data Table, Sidebar, Command palette, Forms com React Hook Form.
 
 **Quando NÃO vale:**
+
 - Projeto sem Tailwind (aí use Radix direto).
 - Publicar uma biblioteca de componentes para outros times consumirem via npm (modelo package é melhor).
 - Componentes com estrutura muito flexível (o copy-paste vira amarração).
 
 **Cuidados:**
+
 - Como o código é copiado, **correções de acessibilidade/bugs do shadcn NÃO chegam sozinhas** — é preciso re-sincronizar (`npx shadcn@latest update` ou diff manual) ou aplicar o fix localmente.
 - Não misturar com outra biblioteca de UI (ex.: MUI/AntD) — APIs e estilos conflitam.
 
@@ -321,19 +336,20 @@ npx storybook@latest init
 **Requisitos:** React ≥ 16.8, Vite ≥ 5.
 
 **O que é criado:**
+
 - `.storybook/main.ts` — configuração (onde estão as stories, addons, framework).
 - `.storybook/preview.ts` — decorações globais (tema, providers, CSS global).
 - `src/components/**/*.stories.tsx` — as histórias.
 
 ```ts
 // .storybook/main.ts
-import type { StorybookConfig } from '@storybook/react-vite';
+import type { StorybookConfig } from "@storybook/react-vite";
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  addons: ['@storybook/addon-essentials'],
-  framework: { name: '@storybook/react-vite', options: {} },
-  docs: { autodocs: 'tag' },
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  addons: ["@storybook/addon-essentials"],
+  framework: { name: "@storybook/react-vite", options: {} },
+  docs: { autodocs: "tag" },
 };
 export default config;
 ```
@@ -342,22 +358,30 @@ export default config;
 
 ```tsx
 // src/components/ui/button/Button.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from './Button';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Button } from "./Button";
 
 const meta = {
-  title: 'UI/Button',
+  title: "UI/Button",
   component: Button,
-  parameters: { docs: { description: { component: 'Botão padrão do ZAPP. Variantes: default, destructive, outline, ghost.' } } },
-  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: "Botão padrão do ZAPP. Variantes: default, destructive, outline, ghost.",
+      },
+    },
+  },
+  tags: ["autodocs"],
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = { args: { variant: 'default', children: 'Enviar mensagem' } };
-export const Destructive: Story = { args: { variant: 'destructive', children: 'Excluir chat' } };
-export const Loading: Story = { args: { variant: 'default', children: 'Enviando...', disabled: true } };
+export const Primary: Story = { args: { variant: "default", children: "Enviar mensagem" } };
+export const Destructive: Story = { args: { variant: "destructive", children: "Excluir chat" } };
+export const Loading: Story = {
+  args: { variant: "default", children: "Enviando...", disabled: true },
+};
 ```
 
 ### 4.3 Comandos
@@ -389,13 +413,14 @@ Acessibilidade não é opcional: é requisito legal em vários mercados, melhora
 
 ### 5.1 Contraste de cores (1.4.3)
 
-| Elemento | Contraste mínimo |
-|---|---|
-| Texto normal | **4.5:1** |
-| Texto grande (≥ 24px normal ou ≥ 19px bold) | 3:1 |
-| Componentes de UI e gráficos (bordas de input, ícones de estado, foco) | 3:1 (1.4.11) |
+| Elemento                                                               | Contraste mínimo |
+| ---------------------------------------------------------------------- | ---------------- |
+| Texto normal                                                           | **4.5:1**        |
+| Texto grande (≥ 24px normal ou ≥ 19px bold)                            | 3:1              |
+| Componentes de UI e gráficos (bordas de input, ícones de estado, foco) | 3:1 (1.4.11)     |
 
 **Na prática:**
+
 - Nunca usar cinza-claro sobre branco para texto (ex.: `#999` sobre `#fff` = ~2.8:1 ❌).
 - Testar com ferramentas: **axe DevTools**, **Lighthouse**, addon A11y do Storybook, ou calculadoras (WebAIM Contrast Checker).
 - **Tokenizar as cores com contraste em mente**: definir no design system pares "texto sobre superfície" já validados, e proibir uso direto de hex solto no código.
@@ -407,12 +432,14 @@ Todo elemento interativo precisa mostrar **claramente** onde está o foco do tec
 ```css
 /* Boa prática: nunca remover outline sem substituto visível */
 :focus-visible {
-  outline: 2px solid var(--color-focus);   /* cor com ≥ 3:1 contra o fundo */
+  outline: 2px solid var(--color-focus); /* cor com ≥ 3:1 contra o fundo */
   outline-offset: 2px;
 }
 
 /* ❌ Anti-padrão comum */
-*:focus { outline: none; }
+*:focus {
+  outline: none;
+}
 ```
 
 - Usar `:focus-visible` (só mostra para navegação por teclado, não para clique do mouse).
@@ -435,9 +462,9 @@ Todo elemento interativo precisa mostrar **claramente** onde está o foco do tec
 
 ### 5.4 Tamanho de alvo de toque (2.5.8 — AA: 24×24; recomendação prática: 44×44)
 
-| Padrão | Tamanho mínimo do alvo |
-|---|---|
-| WCAG 2.2 AA (obrigatório) | **24 × 24 CSS pixels** |
+| Padrão                        | Tamanho mínimo do alvo |
+| ----------------------------- | ---------------------- |
+| WCAG 2.2 AA (obrigatório)     | **24 × 24 CSS pixels** |
 | Boa prática mobile / WCAG AAA | **44 × 44 CSS pixels** |
 
 - Vale para botões, ícones clicáveis, abas, itens de lista, checkboxes.
@@ -446,7 +473,7 @@ Todo elemento interativo precisa mostrar **claramente** onde está o foco do tec
 
 ```css
 .icon-button {
-  min-width: 44px;   /* área de toque */
+  min-width: 44px; /* área de toque */
   min-height: 44px;
   display: inline-flex;
   align-items: center;
@@ -470,11 +497,11 @@ Todo elemento interativo precisa mostrar **claramente** onde está o foco do tec
 
 ### 6.1 Estratégias
 
-| Estratégia | Como funciona | Uso recomendado |
-|---|---|---|
-| **Só `prefers-color-scheme`** | CSS media query segue o tema do sistema operacional | Mínimo viável; sem controle do usuário dentro do app |
-| **CSS variables + toggle manual** | Tokens em `:root`; tema dark sobrescreve as variáveis via classe/atributo no `<html>`; preferência salva em `localStorage` | ⭐ Padrão da indústria — controle total |
-| **Híbrido (sistema + toggle)** | Padrão = tema do sistema; usuário pode forçar light/dark | ⭐ Melhor UX (3 estados: claro, escuro, sistema) |
+| Estratégia                        | Como funciona                                                                                                              | Uso recomendado                                      |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| **Só `prefers-color-scheme`**     | CSS media query segue o tema do sistema operacional                                                                        | Mínimo viável; sem controle do usuário dentro do app |
+| **CSS variables + toggle manual** | Tokens em `:root`; tema dark sobrescreve as variáveis via classe/atributo no `<html>`; preferência salva em `localStorage` | ⭐ Padrão da indústria — controle total              |
+| **Híbrido (sistema + toggle)**    | Padrão = tema do sistema; usuário pode forçar light/dark                                                                   | ⭐ Melhor UX (3 estados: claro, escuro, sistema)     |
 
 ### 6.2 Implementação recomendada (CSS variables + 3 estados)
 
@@ -486,7 +513,7 @@ Todo elemento interativo precisa mostrar **claramente** onde está o foco do tec
   --color-primary: #0066cc;
   /* ... */
 }
-html[data-theme='dark'] {
+html[data-theme="dark"] {
   --color-background: #121212;
   --color-text: #f5f5f5;
   --color-primary: #4d9fff;
@@ -495,30 +522,30 @@ html[data-theme='dark'] {
 
 ```tsx
 // useTheme.ts — hook de tema (sistema + manual)
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-type Theme = 'light' | 'dark' | 'system';
+type Theme = "light" | "dark" | "system";
 
 export function useTheme() {
-  const [theme, setTheme] = useState<Theme>(() =>
-    (localStorage.getItem('theme') as Theme) || 'system'
+  const [theme, setTheme] = useState<Theme>(
+    () => (localStorage.getItem("theme") as Theme) || "system",
   );
 
   useEffect(() => {
     const root = document.documentElement;
     const apply = () => {
       const dark =
-        theme === 'dark' ||
-        (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      root.setAttribute('data-theme', dark ? 'dark' : 'light');
-      root.style.colorScheme = dark ? 'dark' : 'light'; // scrollbars, form controls nativos
+        theme === "dark" ||
+        (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      root.setAttribute("data-theme", dark ? "dark" : "light");
+      root.style.colorScheme = dark ? "dark" : "light"; // scrollbars, form controls nativos
     };
     apply();
-    localStorage.setItem('theme', theme);
+    localStorage.setItem("theme", theme);
 
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    mq.addEventListener('change', apply); // reage se o sistema mudar
-    return () => mq.removeEventListener('change', apply);
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    mq.addEventListener("change", apply); // reage se o sistema mudar
+    return () => mq.removeEventListener("change", apply);
   }, [theme]);
 
   return { theme, setTheme };
@@ -530,9 +557,10 @@ export function useTheme() {
 ```html
 <script>
   (function () {
-    var t = localStorage.getItem('theme') || 'system';
-    var dark = t === 'dark' || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    var t = localStorage.getItem("theme") || "system";
+    var dark =
+      t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
   })();
 </script>
 ```
@@ -568,11 +596,11 @@ Um design system vivo muda sempre. O problema não é mudar — é mudar **sem q
 
 Formato `MAJOR.MINOR.PATCH` (ex.: `2.3.1`):
 
-| Incremento | Quando | Exemplos no ZAPP |
-|---|---|---|
-| **MAJOR** (2 → 3) | **Breaking change**: quebra API, visual ou comportamento | Renomear prop `type` → `variant`; mudar cor primária do tema; trocar estrutura do Card |
-| **MINOR** (3.1 → 3.2) | Nova funcionalidade **sem quebrar** nada | Novo componente `Avatar`, nova variante de botão |
-| **PATCH** (3.2.1 → 3.2.2) | Correção de bug | Fix de contraste, conserto de foco |
+| Incremento                | Quando                                                   | Exemplos no ZAPP                                                                       |
+| ------------------------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| **MAJOR** (2 → 3)         | **Breaking change**: quebra API, visual ou comportamento | Renomear prop `type` → `variant`; mudar cor primária do tema; trocar estrutura do Card |
+| **MINOR** (3.1 → 3.2)     | Nova funcionalidade **sem quebrar** nada                 | Novo componente `Avatar`, nova variante de botão                                       |
+| **PATCH** (3.2.1 → 3.2.2) | Correção de bug                                          | Fix de contraste, conserto de foco                                                     |
 
 **Importante para design system:** mudança **visual** também é breaking (o usuário vê!). Trocar a cor primária da marca é MAJOR, mesmo que o código compile.
 
@@ -591,12 +619,18 @@ Formato `MAJOR.MINOR.PATCH` (ex.: `2.3.1`):
 - **CHANGELOG sempre**: cada release documenta o que mudou, o que quebra e como migrar. Template:
   ```markdown
   ## [3.0.0] - 2026-08-01
+
   ### Breaking
+
   - Renomeado `Button type="danger"` → `variant="destructive"` (codemod disponível)
   - Cor primária atualizada para a nova identidade Promo Brindes
+
   ### Adicionado
+
   - Novo componente `MessageBubble`
+
   ### Corrigido
+
   - Contraste do texto de status "aguardando" (agora 4.6:1)
   ```
 - **Codemods**: scripts que migram o código dos consumidores automaticamente (ex.: rename de prop). Essenciais quando há muitos apps usando o system.
@@ -620,16 +654,16 @@ Formato `MAJOR.MINOR.PATCH` (ex.: `2.3.1`):
 
 **Stack proposta (tudo open source, combina com React + Vite + TS):**
 
-| Camada | Ferramenta | Papel |
-|---|---|---|
-| Design | Figma + Tokens Studio | Componentes e variáveis; tokens em JSON (formato W3C) |
-| Tokens → código | Style Dictionary + `@tokens-studio/sd-transforms` | Gera CSS variables + tema Tailwind a partir do JSON |
-| Estilos | **CSS variables + Tailwind CSS** | Tokens em runtime + produtividade utility-first |
-| Componentes | **shadcn/ui (sobre Radix UI)** | Base pronta, acessível, 100% customizável e sua |
-| Documentação | **Storybook (+ addon A11y)** | Catálogo vivo, testes de acessibilidade e regressão |
-| Acessibilidade | WCAG 2.2 AA | Contraste 4.5:1, foco visível, ARIA, alvos 44px |
-| Temas | `data-theme` + `localStorage` + `prefers-color-scheme` | Dark mode com 3 estados, sem FOUC |
-| Evolução | SemVer + deprecação em 3 fases + CHANGELOG | Mudanças previsíveis e sem quebrar produção |
+| Camada          | Ferramenta                                             | Papel                                                 |
+| --------------- | ------------------------------------------------------ | ----------------------------------------------------- |
+| Design          | Figma + Tokens Studio                                  | Componentes e variáveis; tokens em JSON (formato W3C) |
+| Tokens → código | Style Dictionary + `@tokens-studio/sd-transforms`      | Gera CSS variables + tema Tailwind a partir do JSON   |
+| Estilos         | **CSS variables + Tailwind CSS**                       | Tokens em runtime + produtividade utility-first       |
+| Componentes     | **shadcn/ui (sobre Radix UI)**                         | Base pronta, acessível, 100% customizável e sua       |
+| Documentação    | **Storybook (+ addon A11y)**                           | Catálogo vivo, testes de acessibilidade e regressão   |
+| Acessibilidade  | WCAG 2.2 AA                                            | Contraste 4.5:1, foco visível, ARIA, alvos 44px       |
+| Temas           | `data-theme` + `localStorage` + `prefers-color-scheme` | Dark mode com 3 estados, sem FOUC                     |
+| Evolução        | SemVer + deprecação em 3 fases + CHANGELOG             | Mudanças previsíveis e sem quebrar produção           |
 
 **Resultado:** uma única fonte da verdade (tokens no GitHub) alimentando design e código, componentes consistentes e acessíveis, dark mode de graça, e evolução segura — tudo mantendo a velocidade de desenvolvimento com agentes de IA (shadcn/ui é "AI-ready" e Storybook documenta o comportamento visual para qualquer um).
 

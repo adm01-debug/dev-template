@@ -12,16 +12,16 @@ O ZAPP Web v3 **já possui um design system maduro e bem estruturado**. Não se 
 
 ### Arquitetura encontrada
 
-| Camada | Arquivos | Tamanho |
-|---|---|---|
-| **Tokens de design** | `src/styles/tokens.css` | 338 linhas, ~272 variáveis CSS |
-| **CSS modular** | `src/styles/` (base, utilities, components, animations, sidebar, accessibility) | 1.321 linhas no total |
-| **Config Tailwind** | `tailwind.config.ts` | 346 linhas (mapeia tokens → utilitários) |
-| **Componentes UI** | `src/components/ui/` | **71 arquivos .tsx** + subpastas |
-| **Ferramenta de auditoria** | `scripts/check-design-system.ts` + `ds-config.ts` + teste | Automatizada |
-| **Relatório existente** | `design-system-audit.md` (raiz) + `docs/design-system-audit.md` | Gerado por script |
-| **Storybook** | `.storybook/` + `src/components/ui/stories/` | 9 stories |
-| **Presets de tema** | `src/components/settings/theme/` (presets, useThemePreset, controles) | Sistema de temas |
+| Camada                      | Arquivos                                                                        | Tamanho                                  |
+| --------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------- |
+| **Tokens de design**        | `src/styles/tokens.css`                                                         | 338 linhas, ~272 variáveis CSS           |
+| **CSS modular**             | `src/styles/` (base, utilities, components, animations, sidebar, accessibility) | 1.321 linhas no total                    |
+| **Config Tailwind**         | `tailwind.config.ts`                                                            | 346 linhas (mapeia tokens → utilitários) |
+| **Componentes UI**          | `src/components/ui/`                                                            | **71 arquivos .tsx** + subpastas         |
+| **Ferramenta de auditoria** | `scripts/check-design-system.ts` + `ds-config.ts` + teste                       | Automatizada                             |
+| **Relatório existente**     | `design-system-audit.md` (raiz) + `docs/design-system-audit.md`                 | Gerado por script                        |
+| **Storybook**               | `.storybook/` + `src/components/ui/stories/`                                    | 9 stories                                |
+| **Presets de tema**         | `src/components/settings/theme/` (presets, useThemePreset, controles)           | Sistema de temas                         |
 
 ### O que o design system contém
 
@@ -35,11 +35,13 @@ O ZAPP Web v3 **já possui um design system maduro e bem estruturado**. Não se 
 ### Relatório existente (`design-system-audit.md` na raiz)
 
 É um relatório **gerado por script** (`scripts/check-design-system.ts`) que escaneia o código procurando:
+
 - Cores literais proibidas (`bg-blue-100`, `text-red-800`, `bg-gray-100`…)
 - Hex hardcoded (`#3b82f6`, `#EC4899`…)
 - Fontes literais (`font-mono` fora de contexto técnico)
 
 **Resultado do último relatório (243 linhas):** ~80 violações encontradas, a maioria **Low** (cores de marca legítimas — Google, WhatsApp, PDF, Office — na whitelist) e um conjunto de **Medium pendentes**:
+
 - `EmailTemplatesManager.tsx` (linhas 54–57): `bg-blue-100/text-blue-800` → deveria ser `bg-primary/text-primary`; `bg-purple-100` → `bg-accent`; `bg-amber-100` → `bg-warning`; `bg-gray-100` → `bg-muted` (16 correções com sugestão pronta)
 - `NotificationChannelsPage.tsx` (linhas 36–39): mesmo padrão `bg-blue-100` → `bg-primary`, `bg-red-100` → `bg-destructive` etc. (16 correções)
 - `TagsView.tsx` (linhas 39–45): hex de tags (`#f97316`, `#06b6d4`, `#ec4899`) — "Check design system tokens"
@@ -65,24 +67,31 @@ O relatório em `docs/design-system-audit.md` (16/07/2026) registra **0 violaç�
 ## 3. Gaps — O Que Falta ❌
 
 ### G1 — Violações Medium pendentes (padrão ideal: zero classes literais)
+
 O próprio relatório gerado aponta ~32 correções Medium com sugestão pronta (`bg-blue-100` → `bg-primary`, etc.) em 3 arquivos, e **nenhuma foi aplicada**. Cores "clássicas" do Tailwind convivem com os tokens.
 
 ### G2 — Uso incorreto de `font-mono` (~30 ocorrências Medium)
+
 `font-mono` deve ser só para dados técnicos (IDs, logs, métricas). Vários usos em telas administrativas e diagnósticos precisam revisão para decidir manter (técnico) ou trocar.
 
 ### G3 — Hex hardcoded remanescentes (Low)
+
 ~30 ocorrências de cores hex fora dos tokens (tags em `TagsView.tsx`, `CreateQueueDialog.tsx`, logs de dev, `useEvolutionAutoReconnect.ts`, etc.). Aceitáveis em casos técnicos, mas sem token de origem ficam fora do controle de tema.
 
 ### G4 — Documentação dos componentes: cobertura baixa
+
 Apenas **9 stories** (Button, Card, Dialog, Input, Link, Select, Textarea, Introduction) para 71 componentes (~13%). Sem docs de uso, variantes e estados, a consistência depende da memória dos devs. Não há documentação amigável para não-desenvolvedores (o dono do produto não consegue "ver" o design system).
 
 ### G5 — Garantia de qualidade não é contínua
+
 O checker existe mas não roda automaticamente (sem hook/CI visível no fluxo). Sem visual regression tests (ex.: Chromatic/Playwright) e sem lint de acessibilidade automatizado (axe) no CI, regressões visuais e de contraste passam despercebidas.
 
 ### G6 — Contraste não validado para todos os tokens
+
 A correção WCAG AA validou 78 pares de `success/info/destructive`, mas **não cobre** os tokens de gamificação (`xp`, `coins`, `streak`, `rank-*`), `status.*`, `priority.*` e `chat.*` — exatamente os mais usados em um app de atendimento.
 
 ### G7 — Sem fonte única de verdade para sincronia com design
+
 Tokens vivem apenas em `tokens.css`. Não há spec.json/design tokens exportáveis (para Figma ou futuras plataformas), o que dificulta evoluir o visual sem tocar código.
 
 ---
@@ -90,28 +99,31 @@ Tokens vivem apenas em `tokens.css`. Não há spec.json/design tokens exportáve
 ## 4. Recomendações Priorizadas
 
 ### 🔴 P0 — Correções urgentes (baixo esforço, alto impacto)
-| # | Ação | Onde |
-|---|---|---|
-| 1 | Aplicar as correções Medium pendentes do relatório: `bg-blue-100`→`bg-primary`, `bg-purple-100`→`bg-accent`, `bg-amber-100`→`bg-warning`, `bg-gray-100`→`bg-muted`, `bg-red-100`→`bg-destructive` | `EmailTemplatesManager.tsx` (L54–57), `NotificationChannelsPage.tsx` (L36–39) |
-| 2 | Rodar o checker em modo `--apply-patch` e gerar novo relatório zerado | `bun scripts/check-design-system.ts --apply-patch` |
-| 3 | Integrar o checker no CI (modo `--ci`) e/ou pre-commit (lint-staged já existe) para impedir novas violações | `.github/workflows` + `.husky` |
+
+| #   | Ação                                                                                                                                                                                              | Onde                                                                          |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| 1   | Aplicar as correções Medium pendentes do relatório: `bg-blue-100`→`bg-primary`, `bg-purple-100`→`bg-accent`, `bg-amber-100`→`bg-warning`, `bg-gray-100`→`bg-muted`, `bg-red-100`→`bg-destructive` | `EmailTemplatesManager.tsx` (L54–57), `NotificationChannelsPage.tsx` (L36–39) |
+| 2   | Rodar o checker em modo `--apply-patch` e gerar novo relatório zerado                                                                                                                             | `bun scripts/check-design-system.ts --apply-patch`                            |
+| 3   | Integrar o checker no CI (modo `--ci`) e/ou pre-commit (lint-staged já existe) para impedir novas violações                                                                                       | `.github/workflows` + `.husky`                                                |
 
 ### 🟡 P1 — Importante (médio esforço)
-| # | Ação |
-|---|---|
-| 4 | Revisar os ~30 usos de `font-mono`: manter só em dados técnicos; trocar por `font-sans` nos demais |
-| 5 | Validar contraste WCAG AA dos tokens de domínio (gamificação, status, priority, chat) com o script existente (`docs/wcag_contrast_tokens_fix.py`) e corrigir os que falharem |
-| 6 | Expandir Storybook para os componentes principais não documentados (Badge, Alert, Tabs, Switch, Tooltip, Skeleton, EmptyState, Toast…) — priorizar os mais usados |
-| 7 | Adicionar visual regression testing (ex.: Chromatic ou Playwright) nos stories principais |
-| 8 | Adicionar lint de acessibilidade (axe-core) ao CI para pegar erros de ARIA/contraste automaticamente |
+
+| #   | Ação                                                                                                                                                                         |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4   | Revisar os ~30 usos de `font-mono`: manter só em dados técnicos; trocar por `font-sans` nos demais                                                                           |
+| 5   | Validar contraste WCAG AA dos tokens de domínio (gamificação, status, priority, chat) com o script existente (`docs/wcag_contrast_tokens_fix.py`) e corrigir os que falharem |
+| 6   | Expandir Storybook para os componentes principais não documentados (Badge, Alert, Tabs, Switch, Tooltip, Skeleton, EmptyState, Toast…) — priorizar os mais usados            |
+| 7   | Adicionar visual regression testing (ex.: Chromatic ou Playwright) nos stories principais                                                                                    |
+| 8   | Adicionar lint de acessibilidade (axe-core) ao CI para pegar erros de ARIA/contraste automaticamente                                                                         |
 
 ### 🟢 P2 — Melhoria contínua
-| # | Ação |
-|---|---|
-| 9 | Criar documentação amigável do design system (guia visual: cores, botões, componentes) para o dono do produto e para novos devs |
-| 10 | Exportar os tokens para um `tokens.json`/spec versionado, fonte única de verdade (sincronizável com Figma) |
-| 11 | Tokenizar os hex "Low" restantes quando fizerem sentido semântico (ex.: cores de tags em `TagsView.tsx`) |
-| 12 | Considerar um "kit de componentes" visível dentro do app (a página de demo `ZappWebbDemoPage` pode evoluir para isso) |
+
+| #   | Ação                                                                                                                            |
+| --- | ------------------------------------------------------------------------------------------------------------------------------- |
+| 9   | Criar documentação amigável do design system (guia visual: cores, botões, componentes) para o dono do produto e para novos devs |
+| 10  | Exportar os tokens para um `tokens.json`/spec versionado, fonte única de verdade (sincronizável com Figma)                      |
+| 11  | Tokenizar os hex "Low" restantes quando fizerem sentido semântico (ex.: cores de tags em `TagsView.tsx`)                        |
+| 12  | Considerar um "kit de componentes" visível dentro do app (a página de demo `ZappWebbDemoPage` pode evoluir para isso)           |
 
 ---
 
@@ -121,4 +133,4 @@ Tokens vivem apenas em `tokens.css`. Não há spec.json/design tokens exportáve
 
 ---
 
-*Auditoria gerada por inspeção direta do repositório: `tailwind.config.ts`, `src/index.css`, `src/styles/*` (7 módulos CSS), `src/components/ui/` (71 componentes), `scripts/check-design-system.ts`, `design-system-audit.md`, `docs/wcag-contrast-tokens-fix.md`, `.storybook/`.*
+_Auditoria gerada por inspeção direta do repositório: `tailwind.config.ts`, `src/index.css`, `src/styles/*` (7 módulos CSS), `src/components/ui/` (71 componentes), `scripts/check-design-system.ts`, `design-system-audit.md`, `docs/wcag-contrast-tokens-fix.md`, `.storybook/`._

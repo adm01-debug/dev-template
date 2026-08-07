@@ -24,11 +24,11 @@
 Um **design system** é o "manual de identidade visual e de comportamento" de um app, mas em formato
 que designers E programadores usam juntos. Ele tem 3 camadas:
 
-| Camada | O que é | Exemplo |
-|---|---|---|
-| **Tokens** | Valores básicos nomeados (cores, tamanhos de fonte, espaçamentos, raios de borda, sombras) | `cor-primaria = #25D366` (verde WhatsApp) |
-| **Componentes** | Peças prontas reutilizáveis (botão, campo de busca, avatar, balão de mensagem, badge) | Botão de enviar mensagem |
-| **Padrões** | Regras de como combinar componentes em telas | "Lista de conversas: avatar + nome + prévia + horário + badge de não lidas" |
+| Camada          | O que é                                                                                    | Exemplo                                                                     |
+| --------------- | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| **Tokens**      | Valores básicos nomeados (cores, tamanhos de fonte, espaçamentos, raios de borda, sombras) | `cor-primaria = #25D366` (verde WhatsApp)                                   |
+| **Componentes** | Peças prontas reutilizáveis (botão, campo de busca, avatar, balão de mensagem, badge)      | Botão de enviar mensagem                                                    |
+| **Padrões**     | Regras de como combinar componentes em telas                                               | "Lista de conversas: avatar + nome + prévia + horário + badge de não lidas" |
 
 **Por que importa?** Dados da própria Figma mostram que times com design system concluem tarefas
 ~34% mais rápido. E o efeito prático para o ZAPP: uma tela nova não "inventa" cores, tamanhos e
@@ -41,16 +41,16 @@ desenvolver e mais profissional** para o cliente final.
 
 ### Resumo rápido
 
-| Design System | Empresa | Stack tecnológica | Assinatura visual |
-|---|---|---|---|
-| **Stripe** (HDS) | Stripe | Web (CSS custom + tokens), React, tipografia própria "Söhne" | Roxo-índigo #533AFD, gradientes, pesos leves (300) |
-| **Linear** | Linear | React + Radix UI, Inter Variable (customizada), dark-mode nativo | Quase-preto, um único acento violeta #5E6AD2 |
-| **Geist** | Vercel | Design aberto, fonte Geist (open source), React/Next.js | Preto e branco puros, precisão tipográfica |
-| **Polaris** | Shopify | React (`@shopify/polaris`), tokens primitivos + semânticos | Azul-índigo, foco em admin/gestão |
-| **ADS (Atlassian Design System)** | Atlassian | Pacotes `@atlaskit`, tokens em CSS/JS, temas claro/escuro | Azul B300, acessibilidade como fundação |
-| **Carbon** | IBM | Monorepo open source: React, Angular, Vue, Svelte, Web Components | Azul IBM #0f62fe, fonte IBM Plex, grid 2x |
-| **Material Design 3** | Google | Android (Compose), Flutter, Web (Material Web), tokens `md.ref.*` | Cor dinâmica (Material You), tons pastel |
-| **shadcn/ui** | Comunidade (shadcn) | React + Tailwind CSS + Radix UI — componentes copiados para o SEU código | Sem identidade própria: é um "esqueleto" de sistema |
+| Design System                     | Empresa             | Stack tecnológica                                                        | Assinatura visual                                   |
+| --------------------------------- | ------------------- | ------------------------------------------------------------------------ | --------------------------------------------------- |
+| **Stripe** (HDS)                  | Stripe              | Web (CSS custom + tokens), React, tipografia própria "Söhne"             | Roxo-índigo #533AFD, gradientes, pesos leves (300)  |
+| **Linear**                        | Linear              | React + Radix UI, Inter Variable (customizada), dark-mode nativo         | Quase-preto, um único acento violeta #5E6AD2        |
+| **Geist**                         | Vercel              | Design aberto, fonte Geist (open source), React/Next.js                  | Preto e branco puros, precisão tipográfica          |
+| **Polaris**                       | Shopify             | React (`@shopify/polaris`), tokens primitivos + semânticos               | Azul-índigo, foco em admin/gestão                   |
+| **ADS (Atlassian Design System)** | Atlassian           | Pacotes `@atlaskit`, tokens em CSS/JS, temas claro/escuro                | Azul B300, acessibilidade como fundação             |
+| **Carbon**                        | IBM                 | Monorepo open source: React, Angular, Vue, Svelte, Web Components        | Azul IBM #0f62fe, fonte IBM Plex, grid 2x           |
+| **Material Design 3**             | Google              | Android (Compose), Flutter, Web (Material Web), tokens `md.ref.*`        | Cor dinâmica (Material You), tons pastel            |
+| **shadcn/ui**                     | Comunidade (shadcn) | React + Tailwind CSS + Radix UI — componentes copiados para o SEU código | Sem identidade própria: é um "esqueleto" de sistema |
 
 ---
 
@@ -171,16 +171,19 @@ desenvolver e mais profissional** para o cliente final.
 Tudo que os grandes sistemas fazem igual — ou seja, o "mínimo obrigatório" para o ZAPP:
 
 ### 3.1 Espaçamento em escala (nada de valores soltos)
+
 - **Base de 4px ou 8px** (Stripe 4px, Polaris 4px, Linear 8px, Carbon múltiplos de 2/4/8).
 - Escala recomendada: `4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 96`.
 - Regra de bolso: **nunca use 5px, 7px, 13px, 17px**... Só valores da escala.
 
 ### 3.2 Raios de borda consistentes (poucos valores, com função)
+
 - Padrão que se repete: **2–4px** (micro: badges, tags) · **6–8px** (botões, inputs, cards) ·
   **12–16px** (painéis grandes) · **9999px** (pílulas/chips) · **50%** (avatares, bolinhas de status).
 - Regra: raio pequeno = precisão/profissional; raio grande = amigável. Escolha UM e repita.
 
 ### 3.3 Cores: marca + neutras + semânticas (nunca arco-íris)
+
 - **1 cor de marca** (Stripe índigo, Linear violeta, Intercom laranja) usada com parcimônia.
 - **Neutros**: branco/quase-branco, 3–4 tons de cinza para texto (principal, secundário, apagado),
   bordas suaves.
@@ -189,6 +192,7 @@ Tudo que os grandes sistemas fazem igual — ou seja, o "mínimo obrigatório" p
 - Tons de texto em hierarquia (ex.: Linear): `#F7F8F8` (principal) → `#D0D6E0` → `#8A8F98` → `#62666D`.
 
 ### 3.4 Tipografia com escala modular
+
 - **2 famílias no máximo** (ex.: Inter + JetBrains Mono/IBM Plex Mono) — uma para texto, uma
   mono para dados técnicos.
 - Escala modular (ex.: 12, 13, 14, 15, 16, 18, 20, 24, 32, 40, 48) com **poucos pesos**
@@ -198,11 +202,13 @@ Tudo que os grandes sistemas fazem igual — ou seja, o "mínimo obrigatório" p
 - Base de corpo: **16px** (leitura) e 14px (UI densa de atendimento).
 
 ### 3.5 Tokens em duas camadas (o "segredo" de todos)
+
 1. **Primitivos** (valores crus): `verde-500 = #25D366`, `espaco-4 = 16px`, `raio-8 = 8px`.
 2. **Semânticos** (papel): `cor.marca.primaria`, `cor.texto.padrao`, `espaco.card.padding`,
    `raio.botao`. O código usa SÓ os semânticos — trocar a marca = trocar tokens, não telas.
 
 ### 3.6 O que mais se repete
+
 - **Dark mode** desde o início (Atlassian, Linear, Vercel) — tema escuro não é luxo, é produto.
 - **Estados de interação** para tudo: hover, foco visível (focus ring), ativo, desabilitado,
   carregando, erro.
@@ -219,15 +225,16 @@ Um app tipo WhatsApp Business tem **vocabulário próprio**. Estes são os compo
 que o design system do ZAPP deve definir (com exemplos concretos):
 
 ### 4.1 Estados de mensagem (o coração do app)
-| Estado | Visual típico | Regra de design |
-|---|---|---|
-| Enviando/pendente | Relógio ou spinner dentro do balão | Deve sumir em <1s normalmente |
-| Enviada | ✓ (1 tique) | Cinza, sutil |
-| Entregue | ✓✓ (2 tiques) | Cinza |
-| Lida | ✓✓ azul | Única cor "extra" permitida na mensagem |
-| **Falhou** | ⚠ ícone + texto "Não enviada" | **Obrigatório botão "Tentar novamente"** — sem retry, o atendente perde a confiança no app |
-| Digitando | 3 bolinhas animadas | Altura fixa (~28px), **não empurra** o conteúdo — aparece por cima |
-| Hora | 12h/24h + separadores de data no meio do thread | Timestamp em texto apagado (3º nível de cinza) |
+
+| Estado            | Visual típico                                   | Regra de design                                                                            |
+| ----------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Enviando/pendente | Relógio ou spinner dentro do balão              | Deve sumir em <1s normalmente                                                              |
+| Enviada           | ✓ (1 tique)                                     | Cinza, sutil                                                                               |
+| Entregue          | ✓✓ (2 tiques)                                   | Cinza                                                                                      |
+| Lida              | ✓✓ azul                                         | Única cor "extra" permitida na mensagem                                                    |
+| **Falhou**        | ⚠ ícone + texto "Não enviada"                   | **Obrigatório botão "Tentar novamente"** — sem retry, o atendente perde a confiança no app |
+| Digitando         | 3 bolinhas animadas                             | Altura fixa (~28px), **não empurra** o conteúdo — aparece por cima                         |
+| Hora              | 12h/24h + separadores de data no meio do thread | Timestamp em texto apagado (3º nível de cinza)                                             |
 
 - **Balões:** mensagem própria vs. recebida com cores diferentes (ex.: verde marca vs. branco),
   largura máx. ~60–70% do painel, raio assimétrico (canto inferior do lado de quem fala mais "pontudo").
@@ -235,6 +242,7 @@ que o design system do ZAPP deve definir (com exemplos concretos):
   (WhatsApp, Instagram, Facebook, Telegram, E-mail...).
 
 ### 4.2 Badges de status (semânticos, com contraste)
+
 - **Não lidas:** bolinha vermelha com número branco, mín. 16–20px, "99+" acima de 99.
 - **Status do contato/atendente:** online (verde), offline (cinza), ausente (âmbar), ocupado.
 - **Status do atendimento:** na fila, em andamento, resolvido, fechado, pendente, com SLA estourado (vermelho).
@@ -243,28 +251,32 @@ que o design system do ZAPP deve definir (com exemplos concretos):
 - Regra de ouro: **cor semântica nunca é usada "por bonito"** — verde é só sucesso/disponível, vermelho é só erro/urgência.
 
 ### 4.3 Avatares
+
 - Escala de tamanhos: **XS 24px (lista densa), S 32px, M 40px, L 56px (painel de conversa), XL 96px (perfil)**.
 - Fallback: iniciais do nome sobre fundo colorido derivado do nome (hash).
 - Status: bolinha de presença posicionada no canto (borda da cor do fundo para "cortar" o avatar).
 - Grupo: avatares empilhados/sobrepostos.
 
 ### 4.4 Inputs de busca e filtros
+
 - Busca global **Cmd+K** (paleta de comandos, estilo Linear/Vercel) + busca por conversa no topo da lista.
 - Filtros por canal, status, atendente, etiqueta (chips/pílulas com raio 9999px).
 - Input com ícone à esquerda, placeholder em cinza apagado, **focus ring visível** (2px, cor de marca, 20–30% opacidade).
 - Busca com debounce (~300ms) — não pesquisa a cada tecla.
 
 ### 4.5 Painéis (layout 3 colunas)
-| Coluna | Conteúdo | Largura típica |
-|---|---|---|
-| 1. Lista | Conversas + busca + filtros | 280–360px (redimensionável) |
-| 2. Conversa | Thread + composer | Flexível (a maior) |
-| 3. Detalhes | Contato, histórico, etiquetas, atalhos | 260–320px (colapsável) |
+
+| Coluna      | Conteúdo                               | Largura típica              |
+| ----------- | -------------------------------------- | --------------------------- |
+| 1. Lista    | Conversas + busca + filtros            | 280–360px (redimensionável) |
+| 2. Conversa | Thread + composer                      | Flexível (a maior)          |
+| 3. Detalhes | Contato, histórico, etiquetas, atalhos | 260–320px (colapsável)      |
 
 - Painéis com fundo levemente diferente do canvas (1 degrau de luminância), borda divisória de 1px.
 - **Densidade compacta** como opção: atendente quer MUITAS conversas na tela (estilo Linear, não marketing).
 
 ### 4.6 Outros componentes obrigatórios
+
 - **Composer:** expande verticalmente, botões de anexo/mídia/emoji, botão enviar desabilitado quando vazio.
 - **Respostas rápidas / atalhos** (canned responses) com autocomplete.
 - **Estados vazios** (nenhuma conversa, busca sem resultado) — com ilustração + texto + ação.
@@ -300,6 +312,7 @@ Use para auditar o ZAPP (marque ✅ / ⬜). Design system maduro = 12+ itens:
 ## 6. Recomendações para o ZAPP Web v3
 
 ### 6.1 Stack recomendada
+
 - **React + TypeScript + Tailwind CSS + shadcn/ui (Radix UI)** — o padrão de mercado atual, alinhado
   com o modelo "você é dono do código": componentes copiados para o repo do ZAPP, tema inteiro em
   variáveis CSS, acessibilidade de graça via Radix. Nenhuma dependência trava o design.
@@ -307,6 +320,7 @@ Use para auditar o ZAPP (marque ✅ / ⬜). Design system maduro = 12+ itens:
   Alternativa com mais identidade: fonte própria no futuro.
 
 ### 6.2 Tokens iniciais sugeridos (para o time implementar)
+
 - **Base:** espaçamento 4px; raio 6px (botões/inputs), 8px (cards), 12px (painéis), 9999px (badges).
 - **Cores de marca:** verde de atendimento (herança WhatsApp Business) como primária + neutros
   quentes ou frios (escolher UM e manter) + semânticas (sucesso/alerta/erro/info) com contraste AA.
@@ -314,6 +328,7 @@ Use para auditar o ZAPP (marque ✅ / ⬜). Design system maduro = 12+ itens:
   `cor.fundo.painel`, `cor.borda`, `raio.botao`, `espaco.painel` — o código usa só esses.
 
 ### 6.3 Prioridades de componentes de chat (fase 1)
+
 1. Estados de mensagem com **falha + retry** (não-negociável para atendimento).
 2. Badges de não lidas e de status de atendimento com contraste AA (vermelho + branco).
 3. Avatares com fallback de iniciais + bolinha de presença.
@@ -323,6 +338,7 @@ Use para auditar o ZAPP (marque ✅ / ⬜). Design system maduro = 12+ itens:
 7. Dark mode desde o início (atendente usa o app o dia inteiro).
 
 ### 6.4 Regras de ouro para o ZAPP
+
 - **1 cor de marca + neutros + semânticas.** Se uma tela tem mais de 4 cores "decorativas", está errada.
 - **Nunca valores soltos:** sem `padding: 13px` ou `#123456` espalhados no código — sempre tokens.
 - **Acessibilidade não é opcional:** contraste AA em badges e textos; foco visível para quem usa teclado.
@@ -348,4 +364,4 @@ Use para auditar o ZAPP (marque ✅ / ⬜). Design system maduro = 12+ itens:
 
 ---
 
-*Documento gerado em pesquisa na web (ago/2026) com base nos sistemas públicos dos respectivos sites e documentações. Valores de tokens são exemplos reais extraídos dos sistemas; use como referência de implementação, não como especificação oficial.*
+_Documento gerado em pesquisa na web (ago/2026) com base nos sistemas públicos dos respectivos sites e documentações. Valores de tokens são exemplos reais extraídos dos sistemas; use como referência de implementação, não como especificação oficial._
